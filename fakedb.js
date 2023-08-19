@@ -5,14 +5,14 @@
 export const users = [
   {
     id: "12345",
-    name: "John",
+    firstName: "John",
     lastName: "yadav",
     email: "johndoe@gmail.com",
     password: "12345",
   },
   {
     id: "123456",
-    name: "Deep",
+    firstName: "Deep",
     lastName: "singh",
     email: "deep@gmail.com",
     password: "123456",
@@ -28,6 +28,10 @@ export const users = [
 export const quotes = [
   {
     name: "I turn Coffee into code",
+    by: "12345",
+  },
+  {
+    name: "may be called",
     by: "12345",
   },
   {

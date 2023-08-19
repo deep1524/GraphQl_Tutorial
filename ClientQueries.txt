@@ -1,0 +1,67 @@
+----------------------
+query getallusers{
+  users{
+    id
+    firstName
+    lastName
+    email
+  }
+}
+
+---------------
+query getallquotes{
+  quotes{
+    name
+    by
+  }
+}
+-------------------------
+
+query getallusers{
+  users{
+    id
+    firstName
+    lastName
+    email
+    quotes{
+      name
+      by
+    }
+  }
+}
+
+------------------------
+query getuserByid{
+ user(id:"123456"){
+  firstName
+  lastName
+  email
+}
+}
+-----------
+query getquotebyuserid{
+ iquote(by:"123456"){
+ name
+  by
+}
+}
+
+-------------- Query Variables --------------------------------
+query getquotebyuserid($userid:ID!){
+ iquote(by:$userid){
+ name
+  by
+}
+}
+
+
+-------Mutation signup user (its post request) - with Query variables-------------------------------
+mutation signupuser($userNew:UserInput!){
+  user:signupUserDummy(userNew:$userNew)
+    {
+    id
+    firstName
+    lastName
+    email
+  }
+}
