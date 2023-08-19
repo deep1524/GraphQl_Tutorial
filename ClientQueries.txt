@@ -1,7 +1,7 @@
 ----------------------
 query getallusers{
   users{
-    id
+    _id
     firstName
     lastName
     email
@@ -19,7 +19,7 @@ query getallquotes{
 
 query getallusers{
   users{
-    id
+    _id
     firstName
     lastName
     email
@@ -32,7 +32,7 @@ query getallusers{
 
 ------------------------
 query getuserByid{
- user(id:"123456"){
+ user(_id:"123456"){
   firstName
   lastName
   email
@@ -57,11 +57,35 @@ query getquotebyuserid($userid:ID!){
 
 -------Mutation signup user (its post request) - with Query variables-------------------------------
 mutation signupuser($userNew:UserInput!){
-  user:signupUserDummy(userNew:$userNew)
+  user:signupUser(userNew:$userNew)
     {
-    id
+    _id
     firstName
     lastName
     email
+    
+  }
+}
+{
+  "userNew": {
+    "firstName": "Pooja yadav",
+    "lastName": "poori",
+    "email": "poojayadav@gmail.com",
+    "password": "123456789"
+  }
+}
+
+---------------- Mutation signin user (its post request) - with Query variables----------------
+mutation signinUser($userSignIn:UsersigninInput!){
+  user:signinUser(userSignin:$userSignIn)
+    {
+   token 
+  }
+}
+{
+   "userSignIn": {
+   
+    "email": "poojayadav@gmail.com",
+    "password": "1234567890"
   }
 }
