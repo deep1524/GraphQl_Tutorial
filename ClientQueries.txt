@@ -32,7 +32,7 @@ query getallusers{
 
 ------------------------
 query getuserByid{
- user(_id:"123456"){
+ user(_id:"64e097eaeec8ebcf2ec30ff4"){
   firstName
   lastName
   email
@@ -40,7 +40,7 @@ query getuserByid{
 }
 -----------
 query getquotebyuserid{
- iquote(by:"123456"){
+ iquote(by:"64e098ddeec8ebcf2ec30ffa"){
  name
   by
 }
@@ -86,6 +86,6 @@ mutation signinUser($userSignIn:UsersigninInput!){
    "userSignIn": {
    
     "email": "poojayadav@gmail.com",
-    "password": "1234567890"
+    "password": "123456789"
   }
 }

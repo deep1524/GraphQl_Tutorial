@@ -1,18 +1,20 @@
 import { users, quotes } from "./fakedb.js";
 import { randomBytes } from "crypto";
 import bcrypt from "bcryptjs";
-import userModal from "./models/user.js";
-import jwt from "jsonwebtoken"
+
+import jwt from "jsonwebtoken";
 import { JWT_SECRET_KEY } from "./config.js";
+import userModal from "./models/user.js";
+import quotesModal from "./models/quotes.js";
 const resolvers = {
   Query: {
-    users: () => users,
-    user: (parrent, args) => users.find((user) => user._id == args._id),
-    quotes: () => quotes,
-    iquote: (parrent, args) => quotes.filter((quote) => quote.by == args.by),
+    users: async() =>await userModal.find({}),
+    user: async(parrent, {_id}) => await  userModal.findOne({_id}),
+    quotes: async() => await quotesModal.find({}),
+    iquote:async (parrent, {by}) =>await  quotesModal.find({by:by})
   },
   User: {
-    quotes: (ur) => quotes.filter((quote) => quote.by == ur._id),
+    quotes:async (ur) => await quotesModal.find({by:ur._id}),
   },
   Mutation: {
     signupUser: async (parrent, args) => {
@@ -32,12 +34,24 @@ const resolvers = {
       if (!user) {
         throw new Error("User dosent exists with that email");
       }
-      const doMatch=await bcrypt.compare(args.userSignin.password, user.password)
-      if(!doMatch) {
-        throw new Error("email or password in invalid")
+      const doMatch = await bcrypt.compare(
+        args.userSignin.password,
+        user.password
+      );
+      if (!doMatch) {
+        throw new Error("email or password in invalid");
       }
-          const token=  jwt.sign({userId:user._id},JWT_SECRET_KEY)
-          return {token:token}
+      const token = jwt.sign({ userId: user._id }, JWT_SECRET_KEY);
+      return { token: token };
+    },
+    createquotes:async (_, args, context) => {
+      if (!context.userId) throw new Error("You must be logged in");
+      const newQuote=new quotesModal({
+        name: args.name,
+        by: context.userId,
+      });
+      await newQuote.save()
+      return "Quote created successfully"
     },
   },
 };
