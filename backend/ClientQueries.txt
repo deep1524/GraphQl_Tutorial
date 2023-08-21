@@ -12,7 +12,10 @@ query getallusers{
 query getallquotes{
   quotes{
     name
-    by
+    by{
+      _id
+      firstName
+    }
   }
 }
 -------------------------

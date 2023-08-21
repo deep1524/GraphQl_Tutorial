@@ -10,7 +10,7 @@ const resolvers = {
   Query: {
     users: async() =>await userModal.find({}),
     user: async(parrent, {_id}) => await  userModal.findOne({_id}),
-    quotes: async() => await quotesModal.find({}),
+    quotes: async() => await quotesModal.find({}).populate("by","_id firstName"),
     iquote:async (parrent, {by}) =>await  quotesModal.find({by:by})
   },
   User: {
