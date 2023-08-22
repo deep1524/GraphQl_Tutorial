@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 // import { useEffect } from "react";
 import { GET_ALL_QUOTES } from "../gqloperations/queries";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   // with out apollo client to fetch with the used of fetch
@@ -41,7 +42,7 @@ export default function Home() {
           
             <blockquote >
               <h6>{quote.name}</h6>
-              <p className="right-align">~{quote.by.firstName}</p>
+             <Link to={`/profile/${quote.by._id}`}><p className="right-align">~{quote.by.firstName}</p></Link> 
             </blockquote>
            
          

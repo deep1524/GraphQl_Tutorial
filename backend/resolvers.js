@@ -11,7 +11,11 @@ const resolvers = {
     users: async() =>await userModal.find({}),
     user: async(parrent, {_id}) => await  userModal.findOne({_id}),
     quotes: async() => await quotesModal.find({}).populate("by","_id firstName"),
-    iquote:async (parrent, {by}) =>await  quotesModal.find({by:by})
+    iquote:async (parrent, {by}) =>await  quotesModal.find({by:by}),
+    myprofile:async (parrent,args,{userId})=>{
+      if(!userId) throw new Error("you must be logged in")
+     return  await userModal.findOne({_id:userId})
+    }
   },
   User: {
     quotes:async (ur) => await quotesModal.find({by:ur._id}),
